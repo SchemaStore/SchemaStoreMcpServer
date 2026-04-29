@@ -20,13 +20,13 @@ Accept: application/json, text/event-stream
 }
 
 ### Session ID captured from initialize response
-@sessionId = {{initialize.response.headers.Mcp-Session-Id}}
+@toolsSessionId = {{initialize.response.headers.Mcp-Session-Id}}
 
 ### Send initialized notification
 POST {{SchemaStoreMcpServer_HostAddress}}/
 Content-Type: application/json
 Accept: application/json, text/event-stream
-Mcp-Session-Id: {{sessionId}}
+Mcp-Session-Id: {{toolsSessionId}}
 
 {
   "jsonrpc": "2.0",
@@ -40,7 +40,7 @@ Mcp-Session-Id: {{sessionId}}
 POST {{SchemaStoreMcpServer_HostAddress}}/
 Content-Type: application/json
 Accept: application/json, text/event-stream
-Mcp-Session-Id: {{sessionId}}
+Mcp-Session-Id: {{toolsSessionId}}
 
 {
   "jsonrpc": "2.0",
@@ -56,7 +56,7 @@ Mcp-Session-Id: {{sessionId}}
 POST {{SchemaStoreMcpServer_HostAddress}}/
 Content-Type: application/json
 Accept: application/json, text/event-stream
-Mcp-Session-Id: {{sessionId}}
+Mcp-Session-Id: {{toolsSessionId}}
 
 {
   "jsonrpc": "2.0",
@@ -72,7 +72,7 @@ Mcp-Session-Id: {{sessionId}}
 POST {{SchemaStoreMcpServer_HostAddress}}/
 Content-Type: application/json
 Accept: application/json, text/event-stream
-Mcp-Session-Id: {{sessionId}}
+Mcp-Session-Id: {{toolsSessionId}}
 
 {
   "jsonrpc": "2.0",
@@ -90,7 +90,7 @@ Mcp-Session-Id: {{sessionId}}
 POST {{SchemaStoreMcpServer_HostAddress}}/
 Content-Type: application/json
 Accept: application/json, text/event-stream
-Mcp-Session-Id: {{sessionId}}
+Mcp-Session-Id: {{toolsSessionId}}
 
 {
   "jsonrpc": "2.0",
@@ -106,7 +106,7 @@ Mcp-Session-Id: {{sessionId}}
 POST {{SchemaStoreMcpServer_HostAddress}}/
 Content-Type: application/json
 Accept: application/json, text/event-stream
-Mcp-Session-Id: {{sessionId}}
+Mcp-Session-Id: {{toolsSessionId}}
 
 {
   "jsonrpc": "2.0",
@@ -122,7 +122,7 @@ Mcp-Session-Id: {{sessionId}}
 POST {{SchemaStoreMcpServer_HostAddress}}/
 Content-Type: application/json
 Accept: application/json, text/event-stream
-Mcp-Session-Id: {{sessionId}}
+Mcp-Session-Id: {{toolsSessionId}}
 
 {
   "jsonrpc": "2.0",
@@ -140,7 +140,7 @@ Mcp-Session-Id: {{sessionId}}
 POST {{SchemaStoreMcpServer_HostAddress}}/
 Content-Type: application/json
 Accept: application/json, text/event-stream
-Mcp-Session-Id: {{sessionId}}
+Mcp-Session-Id: {{toolsSessionId}}
 
 {
   "jsonrpc": "2.0",
@@ -156,7 +156,7 @@ Mcp-Session-Id: {{sessionId}}
 POST {{SchemaStoreMcpServer_HostAddress}}/
 Content-Type: application/json
 Accept: application/json, text/event-stream
-Mcp-Session-Id: {{sessionId}}
+Mcp-Session-Id: {{toolsSessionId}}
 
 {
   "jsonrpc": "2.0",
@@ -172,7 +172,7 @@ Mcp-Session-Id: {{sessionId}}
 POST {{SchemaStoreMcpServer_HostAddress}}/
 Content-Type: application/json
 Accept: application/json, text/event-stream
-Mcp-Session-Id: {{sessionId}}
+Mcp-Session-Id: {{toolsSessionId}}
 
 {
   "jsonrpc": "2.0",

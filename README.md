@@ -6,7 +6,7 @@ Built with .NET 10 and the official [MCP C# SDK](https://github.com/modelcontext
 
 ## Quick Start — Use the Hosted Server
 
-The SchemaStore MCP Server is publicly hosted at **https://mcp.schemastore.org**. No local setup required.
+The SchemaStore MCP Server is publicly hosted at **<https://mcp.schemastore.org**.> No local setup required.
 
 ### Visual Studio
 
@@ -48,11 +48,11 @@ Point your client at `https://mcp.schemastore.org/` using HTTP transport.
 
 ## Tools
 
-| Tool | Description |
-|------|-------------|
+| Tool            | Description                                                                                    |
+| --------------- | ---------------------------------------------------------------------------------------------- |
 | `searchSchemas` | Search the catalog by name, description, or file pattern. Returns results ranked by relevance. |
-| `getSchema` | Get the full JSON Schema document by name (case-insensitive partial match). |
-| `listSchemas` | List all schemas with pagination (default: 50 per page). |
+| `getSchema`     | Get the full JSON Schema document by name (case-insensitive partial match).                    |
+| `listSchemas`   | List all schemas with pagination (default: 50 per page).                                       |
 
 ## Running the Server
 
@@ -135,6 +135,7 @@ If you prefer stdio transport (no need to keep a server running), point your cli
 See the [`test/mcp-session.http`](test/mcp-session.http) file for manual HTTP testing in Visual Studio.
 
 **Workflow:**
+
 1. Run the server
 2. Execute the `initialize` POST request
 3. Copy the `Mcp-Session-Id` from the response headers
@@ -143,7 +144,7 @@ See the [`test/mcp-session.http`](test/mcp-session.http) file for manual HTTP te
 
 ## Architecture
 
-```
+```txt
 src/SchemaStoreMcpServer/
 ├── Program.cs                      # DI, MCP server, health checks, HTTP transport
 ├── Models/
