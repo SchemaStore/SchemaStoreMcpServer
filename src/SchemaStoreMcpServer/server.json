@@ -1,0 +1,36 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "name": "io.schemastore/schemastore-mcp-server",
+  "description": "MCP server for SchemaStore.org — search, browse, and retrieve JSON schemas from the SchemaStore catalog.",
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "nuget",
+      "registryBaseUrl": "https://api.nuget.org",
+      "identifier": "SchemaStoreMcpServer",
+      "version": "1.0.0",
+      "transport": {
+        "type": "http"
+      },
+      "packageArguments": [],
+      "environmentVariables": []
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/SchemaStore/SchemaStoreMcpServer"
+  },
+  "tools": [
+    {
+      "name": "searchSchemas",
+      "description": "Search the SchemaStore.org catalog for JSON schemas by name, description, or file pattern."
+    },
+    {
+      "name": "getSchema",
+      "description": "Get the full JSON Schema document for a specific schema by name."
+    },
+    {
+      "name": "listSchemas",
+      "description": "List all available JSON schemas from SchemaStore.org with pagination."
+    }
+  ]
+}

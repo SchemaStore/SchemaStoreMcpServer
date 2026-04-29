@@ -1,0 +1,10 @@
+{
+  "inputs": [],
+  "servers": {
+    "SchemaStoreMcpServer": {
+      "url": "http://localhost:5189/",
+      "type": "http",
+      "headers": {}
+    }
+  }
+}

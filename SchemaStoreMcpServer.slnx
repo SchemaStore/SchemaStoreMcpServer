@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SchemaStoreMcpServer/SchemaStoreMcpServer.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <File Path="test/mcp-session.http" />
+    <File Path="test/mcp-tools.http" />
+  </Folder>
+</Solution>

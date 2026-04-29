@@ -1,0 +1,109 @@
+@SchemaStoreMcpServer_HostAddress = http://localhost:5189
+
+### Health Check
+GET {{SchemaStoreMcpServer_HostAddress}}/health
+
+### -------------------------------------------------------
+### MCP Streamable HTTP Transport
+### The server requires Accept: application/json, text/event-stream
+### Responses use SSE format (event: message / data: {...})
+### -------------------------------------------------------
+
+### Step 1: Initialize — copy Mcp-Session-Id from the RESPONSE HEADERS
+# @name initialize
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "clientInfo": { "name": "http-test", "version": "1.0" },
+    "capabilities": {}
+  }
+}
+
+### Step 2: Session ID from response header (VS 2022 17.13+ supports this)
+@sessionId = {{initialize.response.headers.Mcp-Session-Id}}
+
+### Send initialized notification
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+Mcp-Session-Id: {{sessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized",
+  "params": {}
+}
+
+### List available tools
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+Mcp-Session-Id: {{sessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/list",
+  "params": {}
+}
+
+### -------------------------------------------------------
+### searchSchemas
+### -------------------------------------------------------
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+Mcp-Session-Id: {{sessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": 10,
+  "method": "tools/call",
+  "params": {
+    "name": "searchSchemas",
+    "arguments": { "query": "docker" }
+  }
+}
+
+### -------------------------------------------------------
+### getSchema
+### -------------------------------------------------------
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+Mcp-Session-Id: {{sessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": 20,
+  "method": "tools/call",
+  "params": {
+    "name": "getSchema",
+    "arguments": { "nameOrPartial": "tsconfig" }
+  }
+}
+
+### -------------------------------------------------------
+### listSchemas (paginated)
+### -------------------------------------------------------
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+Mcp-Session-Id: {{sessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": 30,
+  "method": "tools/call",
+  "params": {
+    "name": "listSchemas",
+    "arguments": { "limit": 5, "offset": 0 }
+  }
+}

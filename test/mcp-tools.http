@@ -1,0 +1,185 @@
+@SchemaStoreMcpServer_HostAddress = http://localhost:5189
+
+### -------------------------------------------------------
+### Initialize session (must run first)
+### -------------------------------------------------------
+# @name initialize
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "clientInfo": { "name": "http-test", "version": "1.0" },
+    "capabilities": {}
+  }
+}
+
+### Session ID captured from initialize response
+@sessionId = {{initialize.response.headers.Mcp-Session-Id}}
+
+### Send initialized notification
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+Mcp-Session-Id: {{sessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized",
+  "params": {}
+}
+
+### -------------------------------------------------------
+### searchSchemas — search by keyword
+### -------------------------------------------------------
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+Mcp-Session-Id: {{sessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": 10,
+  "method": "tools/call",
+  "params": {
+    "name": "searchSchemas",
+    "arguments": { "query": "docker" }
+  }
+}
+
+### searchSchemas — multi-term query
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+Mcp-Session-Id: {{sessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": 11,
+  "method": "tools/call",
+  "params": {
+    "name": "searchSchemas",
+    "arguments": { "query": "github actions" }
+  }
+}
+
+### searchSchemas — search by file pattern
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+Mcp-Session-Id: {{sessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": 12,
+  "method": "tools/call",
+  "params": {
+    "name": "searchSchemas",
+    "arguments": { "query": "tsconfig" }
+  }
+}
+
+### -------------------------------------------------------
+### getSchema — fetch full schema by exact name
+### -------------------------------------------------------
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+Mcp-Session-Id: {{sessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": 20,
+  "method": "tools/call",
+  "params": {
+    "name": "getSchema",
+    "arguments": { "nameOrPartial": "package.json" }
+  }
+}
+
+### getSchema — partial name match
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+Mcp-Session-Id: {{sessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": 21,
+  "method": "tools/call",
+  "params": {
+    "name": "getSchema",
+    "arguments": { "nameOrPartial": "eslint" }
+  }
+}
+
+### getSchema — non-existent schema (expect error message)
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+Mcp-Session-Id: {{sessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": 22,
+  "method": "tools/call",
+  "params": {
+    "name": "getSchema",
+    "arguments": { "nameOrPartial": "this-schema-does-not-exist-12345" }
+  }
+}
+
+### -------------------------------------------------------
+### listSchemas — default pagination (limit 50, offset 0)
+### -------------------------------------------------------
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+Mcp-Session-Id: {{sessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": 30,
+  "method": "tools/call",
+  "params": {
+    "name": "listSchemas",
+    "arguments": {}
+  }
+}
+
+### listSchemas — small page
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+Mcp-Session-Id: {{sessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": 31,
+  "method": "tools/call",
+  "params": {
+    "name": "listSchemas",
+    "arguments": { "limit": 5, "offset": 0 }
+  }
+}
+
+### listSchemas — second page
+POST {{SchemaStoreMcpServer_HostAddress}}/
+Content-Type: application/json
+Accept: application/json, text/event-stream
+Mcp-Session-Id: {{sessionId}}
+
+{
+  "jsonrpc": "2.0",
+  "id": 32,
+  "method": "tools/call",
+  "params": {
+    "name": "listSchemas",
+    "arguments": { "limit": 5, "offset": 5 }
+  }
+}
